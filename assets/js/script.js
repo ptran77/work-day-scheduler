@@ -1,21 +1,22 @@
 let currentDay = $("#currentDay");
 currentDay.text(moment().format("dddd, MMMM Do"));
+let timeBlocks = $(".time-block");
 
+
+// function to format time blocks with past, present, or future
 let formatTimeBlocks = function() {
   let currentHour = moment().format("hA");
-  let hours = $(".hour");
-  let textAreas = $(".textarea");
   let curHourFound = false;
-  for(let i = 0; i < hours.length; i++) {
-    if(hours.eq(i).text() === currentHour) {
-      textAreas.eq(i).addClass("present");
+  for(let i = 0; i < timeBlocks.length; i++) {
+    if(timeBlocks.eq(i).find(".hour").text() === currentHour) {
+      timeBlocks.eq(i).find(".textarea").addClass("present");
       curHourFound = true;
     }
     else if (curHourFound) {
-      textAreas.eq(i).addClass("future");
+      timeBlocks.eq(i).find(".textarea").addClass("future");
     }
     else {
-      textAreas.eq(i).addClass("past");
+      timeBlocks.eq(i).find(".textarea").addClass("past");
     }
   }
 }
