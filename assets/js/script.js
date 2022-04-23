@@ -29,16 +29,13 @@ let formatTimeBlocks = function() {
 
 // save event listener, store into saveEvents
 timeBlocks.on('click','.saveBtn', function() {
-  // if there an actually event, add it to saveEvents
-  if($(this).parent().find(".event").val() != "") {
-    if(!saveEvents[currentDay.text()]) {
-      saveEvents[currentDay.text()] = {};
-    }
+  if(!saveEvents[currentDay.text()]) {
+    saveEvents[currentDay.text()] = {};
+  }
   saveEvents[currentDay.text()][$(this).parent().find(".hour").text()] = $(this).parent().find(".event").val();
 
   // saving to local storage
   localStorage.setItem("workDayEvents", JSON.stringify(saveEvents));
-  }
 })
 
 formatTimeBlocks();
