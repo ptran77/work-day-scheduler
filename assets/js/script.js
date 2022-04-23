@@ -12,16 +12,16 @@ let formatTimeBlocks = function() {
 
     // found currentHour and setting it to present
     if(timeBlocks.eq(i).find(".hour").text() === currentHour) {
-      timeBlocks.eq(i).find(".textarea").addClass("present");
+      timeBlocks.eq(i).find(".event").addClass("present");
       curHourFound = true;
     }
     // current hour is already found, so set to future
     else if (curHourFound) {
-      timeBlocks.eq(i).find(".textarea").addClass("future");
+      timeBlocks.eq(i).find(".event").addClass("future");
     }
     // current hour is not found, so set to past
     else {
-      timeBlocks.eq(i).find(".textarea").addClass("past");
+      timeBlocks.eq(i).find(".event").addClass("past");
     }
   }
 }
@@ -30,11 +30,11 @@ let formatTimeBlocks = function() {
 // save event listener, store into saveEvents
 timeBlocks.on('click','.saveBtn', function() {
   // if there an actually event, add it to saveEvents
-  if($(this).parent().find(".textarea").text() != "") {
+  if($(this).parent().find(".event").val() != "") {
     if(!saveEvents[currentDay.text()]) {
       saveEvents[currentDay.text()] = {};
     }
-  saveEvents[currentDay.text()][$(this).parent().find(".hour").text()] = $(this).parent().find(".textarea").text();
+  saveEvents[currentDay.text()][$(this).parent().find(".hour").text()] = $(this).parent().find(".event").val();
 
   // saving to local storage
   localStorage.setItem("workDayEvents", JSON.stringify(saveEvents));
@@ -57,7 +57,7 @@ window.onload = function () {
       let hour = timeBlocks.eq(i).find(".hour").text();
       // if the timeblock hr is save in saveEvent, set the event
       if(saveEvents[currentDay.text()][hour]) {
-        timeBlocks.eq(i).find(".textarea").text(saveEvents[currentDay.text()][hour]);
+        timeBlocks.eq(i).find(".event").val(saveEvents[currentDay.text()][hour]);
       }
     }
   }
